@@ -5,21 +5,21 @@ import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = ( props ) => {
     
-    const ingredients = [];
+    let ingredients = [];
 
     Object.keys(props.ingredients).map((key) => {
-        console.log(props.ingredients);
         for(var i = 0; i < props.ingredients[key]; i++) {
 
             ingredients.push(<BurgerIngredient 
                 key={key+i} 
                 type={key} 
-                quantity={props.ingredients[key]}/>);
+                quantity={props.ingredients[key]}/>
+            );
         }
     });
 
     if(!ingredients.length) {
-        ingredients = "Please add ingredients.";
+        ingredients.push("Please add ingredients.");
     }
 
     return (

@@ -4,42 +4,69 @@ import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 import BurgerControls from '../../components/Burger/BuildControls/BuildControls';
 
+
+const INGREDIENTS_PRICES = {
+  salad: .5,
+  bacon: .5,
+  cheese: .5,
+  meet: .5
+}
+
 class BurgerBuilder extends Component {
 
     state = {
-        ingredients: {
-            salad: 4,
-            bacon: 4,
-            cheese: 4,
-            meat: 4
-        }
+      ingredients: {
+        salad: 0,
+        bacon: 0,
+        cheese: 0,
+        meat: 0
+      },
+      totalPrice: 4
     }
 
     addIngredientHandler(type) {    
-        const ingredients = {...this.state.ingredients};
-        ingredients[type] = ingredients[type] + 1;
+      const ingredients = {...this.state.ingredients};
+      let newPrice = this.state.totalPrice;
 
-        this.setState({ingredients: ingredients});
+      ingredients[type] = ingredients[type] + 1;
+      
+      newPrice = newPrice + INGREDIENTS_PRICES[type];
+      this.setState({
+        ingredients: ingredients,
+        totalPrice: newPrice
+      });
     }
 
     removeIngredientHandler(type) {
-        const ingredients = {...this.state.ingredients};
-        ingredients[type] = ingredients[type] - 1;
 
-        this.setState({ingredients: ingredients});
+      const ingredients = {...this.state.ingredients};
+      let newPrice = this.state.totalPrice;
+
+      if(!ingredients[type]) {
+        return;
+      }
+      
+      ingredients[type] = ingredients[type] - 1;
+      
+      newPrice = newPrice - INGREDIENTS_PRICES[type];
+      this.setState({
+        ingredients: ingredients,
+        totalPrice: newPrice
+      });
     }
 
     render () {
-        return (
-            <Aux>
-                <Burger ingredients={this.state.ingredients} />
-                <BurgerControls 
-                    addHandler={this.addIngredientHandler.bind(this)}
-                    removeHandler={this.removeIngredientHandler.bind(this)}
-                    ingredients={this.state.ingredients}
-                />
-            </Aux>
-        );
+      return (
+        <Aux>
+          <Burger ingredients={this.state.ingredients} />
+          <b>Price: {this.state.totalPrice}</b>
+          <BurgerControls 
+              addHandler={this.addIngredientHandler.bind(this)}
+              removeHandler={this.removeIngredientHandler.bind(this)}
+              ingredients={this.state.ingredients}
+          />
+        </Aux>
+      );
     }
 }
 
