@@ -15,11 +15,29 @@ class BurgerBuilder extends Component {
         }
     }
 
+    addIngredientHandler(type) {    
+        const ingredients = {...this.state.ingredients};
+        ingredients[type] = ingredients[type] + 1;
+
+        this.setState({ingredients: ingredients});
+    }
+
+    removeIngredientHandler(type) {
+        const ingredients = {...this.state.ingredients};
+        ingredients[type] = ingredients[type] - 1;
+
+        this.setState({ingredients: ingredients});
+    }
+
     render () {
         return (
             <Aux>
                 <Burger ingredients={this.state.ingredients} />
-                <BurgerControls />
+                <BurgerControls 
+                    addHandler={this.addIngredientHandler.bind(this)}
+                    removeHandler={this.removeIngredientHandler.bind(this)}
+                    ingredients={this.state.ingredients}
+                />
             </Aux>
         );
     }

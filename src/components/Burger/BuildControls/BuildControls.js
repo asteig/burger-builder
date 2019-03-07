@@ -11,12 +11,20 @@ const controls = [
 	{label: 'Meat', type: 'meat'},
 ];
 
-const buildControls = () => (
-	<div className={classes.BuildControls}>
-		{controls.map(ctrl => (
-			<BuildControl key={ctrl.label} label={ctrl.label} type={ctrl.type} />
-		))}
-	</div>
-);
+const buildControls = (props) => {
+	return (
+		<div className={classes.BuildControls}>
+			{controls.map(ctrl => (
+				<BuildControl 
+					key={ctrl.label} 
+					label={ctrl.label} 
+					type={ctrl.type} 
+					quantity=""
+					addHandler={props.addHandler} 
+					removeHandler={props.removeHandler}/>
+			))}
+		</div>
+	);
+};
 
 export default buildControls;
