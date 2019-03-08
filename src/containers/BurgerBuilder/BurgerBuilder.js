@@ -14,76 +14,84 @@ const INGREDIENTS_PRICES = {
 
 class BurgerBuilder extends Component {
 
-    state = {
-      ingredients: {
-        salad: 0,
-        bacon: 0,
-        cheese: 0,
-        meat: 0
-      },
-      totalPrice: 4
+  state = {
+    ingredients: {
+      salad: 0,
+      bacon: 0,
+      cheese: 0,
+      meat: 0
+    },
+    totalPrice: 4,
+    purchasable: false
+  }
+
+  addIngredientHandler(type) {    
+    const ingredients = {...this.state.ingredients};
+    let newPrice = this.state.totalPrice;
+
+    ingredients[type] = ingredients[type] + 1;
+    
+    newPrice = newPrice + INGREDIENTS_PRICES[type];
+
+    this.setState({
+      ingredients: ingredients,
+      totalPrice: newPrice
+    });
+
+    this.updatePurchaseState(ingredients);
+
+  }
+
+  removeIngredientHandler(type) {
+
+    const ingredients = {...this.state.ingredients};
+    let newPrice = this.state.totalPrice;
+
+    if(!ingredients[type]) {
+      return;
     }
+    
+    ingredients[type] = ingredients[type] - 1;
+    
+    newPrice = newPrice - INGREDIENTS_PRICES[type];
 
-    addIngredientHandler(type) {    
-      const ingredients = {...this.state.ingredients};
-      let newPrice = this.state.totalPrice;
+    this.setState({
+      ingredients: ingredients,
+      totalPrice: newPrice
+    });
 
+    this.updatePurchaseState(ingredients);
 
+  }
 
-      ingredients[type] = ingredients[type] + 1;
-      
-      newPrice = newPrice + INGREDIENTS_PRICES[type];
+  updatePurchaseState(ingredients) {
+    
+    const sum = Object.keys( ingredients )
+      .map( igKey => {
+          return ingredients[igKey];
+      } )
+      .reduce( ( sum, el ) => {
+          return sum + el;
+      }, 0);
 
-      console.log('old price: '+this.state.totalPrice);
-      console.log('add: '+INGREDIENTS_PRICES[type]);
+    this.setState( { purchasable: sum > 0 } );
 
-      console.log('new total: '+newPrice);
+  }
 
-
-      this.setState({
-        ingredients: ingredients,
-        totalPrice: newPrice
-      });
-    }
-
-    removeIngredientHandler(type) {
-
-      const ingredients = {...this.state.ingredients};
-      let newPrice = this.state.totalPrice;
-
-      if(!ingredients[type]) {
-        return;
-      }
-      
-      ingredients[type] = ingredients[type] - 1;
-      
-      newPrice = newPrice - INGREDIENTS_PRICES[type];
-
-      console.log('old price: '+this.state.totalPrice);
-      console.log('remove: '+INGREDIENTS_PRICES[type]);
-
-      console.log('new total: '+newPrice);
-
-
-      this.setState({
-        ingredients: ingredients,
-        totalPrice: newPrice
-      });
-    }
-
-    render () {
-      return (
-        <Aux>
-          <Burger ingredients={this.state.ingredients} />
-          <b>Price: {this.state.totalPrice}</b>
-          <BurgerControls 
-              addHandler={this.addIngredientHandler.bind(this)}
-              removeHandler={this.removeIngredientHandler.bind(this)}
-              ingredients={this.state.ingredients}
-          />
-        </Aux>
-      );
-    }
+  render () {
+    return (
+      <Aux>
+        <Burger ingredients={this.state.ingredients} />
+        <b>Price: {this.state.totalPrice}</b>
+        <BurgerControls 
+            addHandler={this.addIngredientHandler.bind(this)}
+            removeHandler={this.removeIngredientHandler.bind(this)}
+            purchasable={this.state.purchasable}
+            ingredients={this.state.ingredients}
+        />
+      </Aux>
+    );
+  }
 }
 
 export default BurgerBuilder;

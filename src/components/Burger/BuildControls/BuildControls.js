@@ -24,6 +24,9 @@ const buildControls = (props) => {
 					addHandler={props.addHandler} 
 					removeHandler={props.removeHandler}/>
 			))}
+			<button 
+				className={classes.OrderButton}
+				disabled={!props.purchasable}>ORDER NOW</button>
 		</div>
 	);
 };
