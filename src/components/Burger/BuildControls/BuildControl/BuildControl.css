@@ -29,7 +29,13 @@
     cursor: not-allowed;
 }
 
-.Label {
+.BuildControl .Label {
+    padding: 10px;
+    font-weight: bold;
+    width: 80px;
+}
+
+.BuildControl .Quantity {
     padding: 10px;
     font-weight: bold;
     width: 80px;

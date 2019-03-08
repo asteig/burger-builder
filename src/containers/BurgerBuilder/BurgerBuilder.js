@@ -28,9 +28,12 @@ class BurgerBuilder extends Component {
       const ingredients = {...this.state.ingredients};
       let newPrice = this.state.totalPrice;
 
+
+
       ingredients[type] = ingredients[type] + 1;
       
       newPrice = newPrice + INGREDIENTS_PRICES[type];
+      
       this.setState({
         ingredients: ingredients,
         totalPrice: newPrice
@@ -49,6 +52,7 @@ class BurgerBuilder extends Component {
       ingredients[type] = ingredients[type] - 1;
       
       newPrice = newPrice - INGREDIENTS_PRICES[type];
+
       this.setState({
         ingredients: ingredients,
         totalPrice: newPrice
