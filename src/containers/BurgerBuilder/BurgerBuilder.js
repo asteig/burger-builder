@@ -9,7 +9,7 @@ const INGREDIENTS_PRICES = {
   salad: .5,
   bacon: .5,
   cheese: .5,
-  meet: .5
+  meat: .5
 }
 
 class BurgerBuilder extends Component {
@@ -33,7 +33,13 @@ class BurgerBuilder extends Component {
       ingredients[type] = ingredients[type] + 1;
       
       newPrice = newPrice + INGREDIENTS_PRICES[type];
-      
+
+      console.log('old price: '+this.state.totalPrice);
+      console.log('add: '+INGREDIENTS_PRICES[type]);
+
+      console.log('new total: '+newPrice);
+
+
       this.setState({
         ingredients: ingredients,
         totalPrice: newPrice
@@ -52,6 +58,12 @@ class BurgerBuilder extends Component {
       ingredients[type] = ingredients[type] - 1;
       
       newPrice = newPrice - INGREDIENTS_PRICES[type];
+
+      console.log('old price: '+this.state.totalPrice);
+      console.log('remove: '+INGREDIENTS_PRICES[type]);
+
+      console.log('new total: '+newPrice);
+
 
       this.setState({
         ingredients: ingredients,
