@@ -13,10 +13,25 @@ class Checkout extends Component {
 		}
 	}
 
+	checkoutCancelledHandler = () => {
+		console.log('Checkout is cancelled.');
+		console.log(this.props);
+		this.props.history.goBack();
+	}
+
+	checkoutContinuedHandler = () => {
+		console.log('Checkout is continued');
+		console.log(this.props);
+		this.props.history.replace('/checkout/customer-data');
+	}
+
 	render() {
 		return (
 			<div>
-				<CheckoutSummary ingredients={this.state.ingredients}/>
+				<CheckoutSummary 
+					ingredients={this.state.ingredients}
+					checkoutCancelled={this.checkoutCancelledHandler}
+					checkoutContinued={this.checkoutContinuedHandler} />
 			</div>
 		);
 	}
