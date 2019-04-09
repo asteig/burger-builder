@@ -18,7 +18,7 @@ class ContactData extends Component {
                     type: 'text',
                     placeholder: 'Your Name'
                 },
-                value: '',
+                value: 'Your Name',
                 validation: {
                     required: true
                 },
@@ -31,7 +31,7 @@ class ContactData extends Component {
                     type: 'text',
                     placeholder: 'Street'
                 },
-                value: '',
+                value: '123 Street',
                 validation: {
                     required: true
                 },
@@ -44,7 +44,7 @@ class ContactData extends Component {
                     type: 'text',
                     placeholder: 'ZIP Code'
                 },
-                value: '',
+                value: '12345',
                 validation: {
                     required: true,
                     minLength: 5,
@@ -60,7 +60,7 @@ class ContactData extends Component {
                     type: 'text',
                     placeholder: 'Country'
                 },
-                value: '',
+                value: 'USA',
                 validation: {
                     required: true
                 },
@@ -73,7 +73,7 @@ class ContactData extends Component {
                     type: 'email',
                     placeholder: 'Your E-Mail'
                 },
-                value: '',
+                value: 'email@example.com',
                 validation: {
                     required: true,
                     isEmail: true
@@ -94,7 +94,7 @@ class ContactData extends Component {
                 valid: true
             }
         },
-        formIsValid: false
+        formIsValid: true
     }
 
     orderHandler = ( event ) => {
@@ -111,7 +111,12 @@ class ContactData extends Component {
             orderData: formData
         }
 
-        this.props.onOrderBurger(order);
+        console.log('--Props--');
+        console.log(this.props);
+        console.log('--this.props.history--');
+        console.log(this.props.history);
+
+        this.props.onOrderBurger(order, this.props.history);
         
     }
 
@@ -210,8 +215,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
+    console.log('mapDispatchToProps');
+    console.log(this);
     return {
-        onOrderBurger: (orderData) => dispatch(actions.purchaseBurgerAxios(orderData))
+        onOrderBurger: (orderData, history) => dispatch(actions.purchaseBurgerAxios(orderData, history))
     }
 }
 
