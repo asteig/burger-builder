@@ -12,6 +12,8 @@ The following project was completed as part of [Udemy's React Course](https://ww
 - React Routing
 - Animations
 - Next.js
+- Firebase
+- Chrome Dev Tools
 - And more...
 
 ## Learn More
